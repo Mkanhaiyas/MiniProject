@@ -45,7 +45,13 @@ export default function Login() {
           <input type="text" placeholder="Last Name" required />
           <input type="text" placeholder="Email Id" required />
           <input type="password" placeholder="Password" required />
-          <button type="submit" className="submitbtn">
+          <button
+            type="submit"
+            className="submitbtn"
+            onClick={() => {
+              window.alert("Registered Successfully");
+            }}
+          >
             Register
           </button>
         </form>
