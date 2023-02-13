@@ -17,7 +17,7 @@
   height: 100vh;
 }
 
-.title {
+.titles {
   font-size: 3rem;
   text-align: center;
   color: white;
@@ -32,9 +32,6 @@
   line-height: 1.5em;
 }
 
-.image {
-}
-
 .img2 {
   width: 35%;
   position: absolute;
@@ -44,7 +41,8 @@
   border-radius: 10px;
 }
 
-p {
+.para p {
   color: white;
   line-height: 1.5em;
+  text-align: justify;
 }

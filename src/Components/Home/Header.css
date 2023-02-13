@@ -15,7 +15,7 @@
   height: 100vh;
 }
 
-img {
+.LayGirl img {
   height: 42em;
   width: 55em;
   position: fixed;
@@ -44,4 +44,5 @@ button {
   color: white;
   border: none;
   border-radius: 5px;
+  cursor: pointer;
 }

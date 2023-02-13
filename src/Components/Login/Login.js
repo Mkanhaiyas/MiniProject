@@ -1,9 +1,111 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
+const api = process.env.REACT_APP_LINK;
 
 export default function Login() {
   const [btn1Status, setbtn1Status] = useState(false);
   const [btn2Status, setbtn2Status] = useState(true);
+  const [user, setuser] = useState([]);
+  const [data, setdata] = useState({
+    profession: "",
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+  });
+  const [logdata, setlogdata] = useState({
+    profession: "",
+    email: "",
+    password: "",
+  });
+
+  const createPost = async (data) => {
+    const response = await fetch(`${api}/posts/`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    return console.log(await response.json());
+  };
+
+  const clearData = () => {
+    setdata({
+      profession: "",
+      firstname: "",
+      lastname: "",
+      email: "",
+      password: "",
+    });
+  };
+
+  const clearLogdata = () => {
+    setlogdata({
+      profession: "",
+      email: "",
+      password: "",
+    });
+  };
+
+  const getuser = async () => {
+    const response = await (await fetch(`${api}/posts/`)).json();
+    setuser(response);
+  };
+
+  const onsubmit = (e) => {
+    e.preventDefault();
+    try {
+      if ((data.firstname, data.lastname, data.email, data.password !== "")) {
+        createPost(data);
+        alert(`${data.firstname} you are Successfully Registered`);
+        clearData();
+      }
+    } catch (error) {
+      console.log({ message: error.message });
+    }
+  };
+
+  const navigate = useNavigate();
+  const logsubmit = (e) => {
+    e.preventDefault();
+    try {
+      // if ((logdata.email, logdata.password !== "")) {
+      if (
+        user.find(
+          (person) =>
+            person.email === logdata.email &&
+            person.password === logdata.password &&
+            person.profession === logdata.profession
+        )
+      ) {
+        alert(`Login successfully`);
+        if (logdata.profession === "teacher") {
+          navigate("/TDashboard");
+        }
+        if (logdata.profession === "student") {
+          navigate("/SDashboard");
+        }
+      } else alert(`Please Register first`);
+      // } else alert(`Please Fill the above Fields`);
+      clearLogdata();
+    } catch (error) {
+      console.log({ message: error.message });
+    }
+  };
+
+  useEffect(() => {
+    getuser();
+  }, []);
+  // console.log(
+  //   user.find(
+  //     (person) =>
+  //       person.email === logdata.email && person.password === logdata.password
+  //   )
+  // );
+  // user.map((currElement) => {
+  //   //if (currElement.firstname === "Kanhaiya")
+  //   return console.log(currElement._id);
+  // });
 
   return (
     <section id="login">
@@ -34,24 +136,75 @@ export default function Login() {
           </button>
         </div>
         <form id="logform" style={{ display: btn1Status ? "block" : "none" }}>
-          <input type="text" placeholder="Email Id" required />
-          <input type="password" placeholder="Password" required />
-          <button type="submit" className="submitbtn">
+          <select
+            value={logdata.profession}
+            onChange={(e) =>
+              setlogdata({ ...logdata, profession: e.target.value })
+            }
+          >
+            <option>Choose Profession</option>
+            <option value="student">Student</option>
+            <option value="teacher">Teacher</option>
+            <option value="admin">Admin</option>
+          </select>
+          <input
+            type="text"
+            placeholder="Email Id"
+            required
+            value={logdata.email}
+            onChange={(e) => setlogdata({ ...logdata, email: e.target.value })}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            required
+            value={logdata.password}
+            onChange={(e) =>
+              setlogdata({ ...logdata, password: e.target.value })
+            }
+          />
+          <button type="submit" className="submitbtn" onClick={logsubmit}>
             Login
           </button>
         </form>
         <form id="regform" style={{ display: btn2Status ? "block" : "none" }}>
-          <input type="text" placeholder="First Name" required />
-          <input type="text" placeholder="Last Name" required />
-          <input type="text" placeholder="Email Id" required />
-          <input type="password" placeholder="Password" required />
-          <button
-            type="submit"
-            className="submitbtn"
-            onClick={() => {
-              window.alert("Registered Successfully");
-            }}
+          <select
+            value={data.profession}
+            onChange={(e) => setdata({ ...data, profession: e.target.value })}
           >
+            <option>Choose Profession</option>
+            <option value="student">Student</option>
+            <option value="teacher">Teacher</option>
+          </select>
+          <input
+            type="text"
+            placeholder="First Name"
+            value={data.firstname}
+            required
+            onChange={(e) => setdata({ ...data, firstname: e.target.value })}
+          />
+          <input
+            type="text"
+            placeholder="Last Name"
+            value={data.lastname}
+            required
+            onChange={(e) => setdata({ ...data, lastname: e.target.value })}
+          />
+          <input
+            type="text"
+            placeholder="Email Id"
+            value={data.email}
+            required="true"
+            onChange={(e) => setdata({ ...data, email: e.target.value })}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={data.password}
+            required="true"
+            onChange={(e) => setdata({ ...data, password: e.target.value })}
+          />
+          <button type="submit" className="submitbtn" onClick={onsubmit}>
             Register
           </button>
         </form>

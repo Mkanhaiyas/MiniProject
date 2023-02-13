@@ -32,6 +32,6 @@
   flex-wrap: nowrap;
 }
 
-a:hover {
+.Menu-cart a:hover {
   background-color: rgb(79, 28, 182);
 }

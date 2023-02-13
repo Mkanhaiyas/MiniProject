@@ -5,7 +5,7 @@ function Blog() {
   return (
     <section className="blog">
       <div className="container">
-        <div className="title">CONTINUOUS ASSESMENT</div>
+        <div className="titles">CONTINUOUS ASSESMENT</div>
         <div className="para">
           <p>
             Assessment plays an important role in determining student

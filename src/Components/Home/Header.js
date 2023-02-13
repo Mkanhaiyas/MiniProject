@@ -15,7 +15,7 @@ export default function Header() {
           <button onClick={() => navigate("/login")}>Register Now</button>
         </div>
       </div>
-      <div>
+      <div className="LayGirl">
         <img src="girl2.png" alt="Girl" />
       </div>
     </header>
