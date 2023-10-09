@@ -36,7 +36,7 @@ export default function App() {
         <Route path="/" element={<Header />} />
         <Route path="/Blog" element={<Blog />} />
         <Route path="/Contact" element={<Contact />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" elemet={<Login />} />
       </Routes>
     </BrowserRouter>
   );
